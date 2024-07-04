@@ -13,20 +13,27 @@
 </head>
 
 <body>
-    <h1>Lista de Proveedores</h1>
-    <a href="supplier?action=new">Agregar nuevo proveedor</a>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Rut</th>
-            <th>Dirección</th>
-            <th>Correo</th>
-            <th>Número de teléfono</th>
-            <th>Contacto</th>
-            <th>Número de contacto</th>
-            <th>Acciones</th>
-        </tr>
+<div class="container">
+    <h1 class="mt-3">Lista de Proveedores</h1>
+    <a class="btn btn-primary my-3" href="supplier?action=new">Agregar nuevo proveedor</a>
+
+    <table class="table table-hover table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Rut</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Número de teléfono</th>
+                <th scope="col">Contacto</th>
+                <th scope="col">Número de contacto</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
 
         <c:forEach var="supplier" items="${listSuppliers}">
             <tr>
@@ -39,11 +46,12 @@
                 <td>${supplier.contact}</td>
                 <td>${supplier.contactPhone}</td>
                 <td>
-                    <a href="supplier?action=view&id=${supplier.supplierId}">Ver</a>
+                    <a class="btn btn-success" href="supplier?action=view&id=${supplier.supplierId}">Ver</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
+</div>
 
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -13,9 +13,9 @@ import java.util.List;
 
 public class SupplierDAOImpl implements SupplierDAO {
 
-    private static final String SELECT_ALL_USERS = "SELECT id, name, rut, address, email, phone_number, contact, contact_phone FROM suppliers";
-    private static final String SELECT_USER_BY_ID = "SELECT id, name, rut, address, email, phone_number, contact, contact_phone FROM suppliers WHERE id = ?";
-    private static final String INSERT_USER_SQL = "INSERT INTO suppliers (name, rut, address, email, phone_number, contact, contact_phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_SUPPLIERS = "SELECT id, name, rut, address, email, phone_number, contact, contact_phone FROM suppliers";
+    private static final String SELECT_SUPPLIER_BY_ID = "SELECT id, name, rut, address, email, phone_number, contact, contact_phone FROM suppliers WHERE id = ?";
+    private static final String INSERT_SUPPLIER_SQL = "INSERT INTO suppliers (name, rut, address, email, phone_number, contact, contact_phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     public SupplierDAOImpl() {}
 
@@ -23,7 +23,7 @@ public class SupplierDAOImpl implements SupplierDAO {
     public SupplierDTO selectSupplier(int id) {
         SupplierDTO supplier = null;
         try (Connection connection = DBConecction.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SUPPLIER_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -46,7 +46,7 @@ public class SupplierDAOImpl implements SupplierDAO {
     public List<SupplierDTO> selectAllSuppliers() {
         List<SupplierDTO> suppliers = new ArrayList<>();
         try (Connection connection = DBConecction.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_SUPPLIERS)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -69,7 +69,7 @@ public class SupplierDAOImpl implements SupplierDAO {
     public SupplierDTO insertSupplier(SupplierDTO supplier) {
         SupplierDTO newSupplier = null;
         try (Connection connection = DBConecction.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SUPPLIER_SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, supplier.getName());
             preparedStatement.setInt(2, supplier.getRut());
             preparedStatement.setString(3, supplier.getAddress());
