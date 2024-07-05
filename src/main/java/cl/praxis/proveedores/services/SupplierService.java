@@ -9,5 +9,9 @@ public interface SupplierService {
 
     List<SupplierDTO> selectAllSuppliers();
 
-    SupplierDTO insertSupplier(SupplierDTO user);
+    SupplierDTO insertSupplier(SupplierDTO supplier);
+
+    SupplierDTO updateSupplier(SupplierDTO supplier);
+
+    boolean deleteSupplier(int id);
 }

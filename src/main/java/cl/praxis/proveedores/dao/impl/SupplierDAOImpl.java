@@ -16,6 +16,8 @@ public class SupplierDAOImpl implements SupplierDAO {
     private static final String SELECT_ALL_SUPPLIERS = "SELECT id, name, rut, address, email, phone_number, contact, contact_phone FROM suppliers";
     private static final String SELECT_SUPPLIER_BY_ID = "SELECT id, name, rut, address, email, phone_number, contact, contact_phone FROM suppliers WHERE id = ?";
     private static final String INSERT_SUPPLIER_SQL = "INSERT INTO suppliers (name, rut, address, email, phone_number, contact, contact_phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_USER_SQL = "UPDATE suppliers SET name = ?, rut = ?, address = ?, email = ?, phone_number = ?, contact = ?, contact_phone = ? WHERE id = ?";
+    private static final String DELETE_USER_SQL = "DELETE FROM suppliers WHERE id = ?";
 
     public SupplierDAOImpl() {}
 
@@ -96,5 +98,39 @@ public class SupplierDAOImpl implements SupplierDAO {
             throw new RuntimeException(e);
         }
         return newSupplier;
+    }
+
+    @Override
+    public SupplierDTO updateSupplier(SupplierDTO supplier) {
+        try (Connection connection = DBConecction.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_SQL)) {
+            preparedStatement.setString(1, supplier.getName());
+            preparedStatement.setInt(2, supplier.getRut());
+            preparedStatement.setString(3, supplier.getAddress());
+            preparedStatement.setString(4, supplier.getEmail());
+            preparedStatement.setInt(5, supplier.getPhoneNumber());
+            preparedStatement.setString(6, supplier.getContact());
+            preparedStatement.setInt(7, supplier.getContactPhone());
+            preparedStatement.setInt(8, supplier.getSupplierId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return supplier;
+    }
+
+    @Override
+    public boolean deleteSupplier(int id) {
+        boolean supplierDeleted;
+        try (Connection connection = DBConecction.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_SQL)) {
+            preparedStatement.setInt(1, id);
+            supplierDeleted = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return supplierDeleted;
     }
 }

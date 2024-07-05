@@ -28,4 +28,14 @@ public class SupplierServiceImpl implements SupplierService {
     public SupplierDTO insertSupplier(SupplierDTO supplier) {
         return OBJ_SUPPLIER_DAO.insertSupplier(supplier);
     }
+
+    @Override
+    public SupplierDTO updateSupplier(SupplierDTO supplier) {
+        return OBJ_SUPPLIER_DAO.updateSupplier(supplier);
+    }
+
+    @Override
+    public boolean deleteSupplier(int id) {
+        return OBJ_SUPPLIER_DAO.deleteSupplier(id);
+    }
 }

@@ -46,7 +46,11 @@
                 <td>${supplier.contact}</td>
                 <td>${supplier.contactPhone}</td>
                 <td>
-                    <a class="btn btn-success" href="supplier?action=view&id=${supplier.supplierId}">Ver</a>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-success" role="button" href="supplier?action=view&id=${supplier.supplierId}">Ver</a>
+                        <a class="btn btn-warning" role="button" href="supplier?action=edit&id=${supplier.supplierId}">Editar</a>
+                        <a class="btn btn-danger" role="button" href="supplier?action=delete&id=${supplier.supplierId}" onclick="return confirm('¿Estás seguro de eliminar a ${supplier.name} de la lista?')">Eliminar</a>
+                    </div>
                 </td>
             </tr>
         </c:forEach>
